@@ -13,9 +13,24 @@
         { name: "New York", tzCode: "America/New_York", time: {time: "", ampm: "", date: ""} },
     ];
 
+    function shiftDateTime(date: Date) : Date {
+        if (shiftMinutes == 0) return date;
+        // Divide into quarters: 0, 15, 30, 45
+        if (0 < shiftMinutes) {
+            let steps = Math.floor(shiftMinutes / SHIFT_STEP_MINUTES);
+            let nextQuarterMinutes = Math.floor(date.getMinutes() / 15) * 15 + 15 * steps;
+            let smallShiftMinutes = nextQuarterMinutes - date.getMinutes();
+            return new Date(date.getTime() + smallShiftMinutes * 60 * 1000);
+        }
+        let steps = Math.floor(Math.abs(shiftMinutes) / SHIFT_STEP_MINUTES) - 1;
+        let prevQuarterMinutes = Math.floor(date.getMinutes() / 15) * 15 - 15 * steps;
+        let smallShiftMinutes = date.getMinutes() - prevQuarterMinutes;
+        return new Date(date.getTime() - smallShiftMinutes * 60 * 1000);
+    }
+
     function getShiftedTimeInTimeZone(tzCode: string) : ShiftedTime {
         let now = new Date();
-        let shiftedNow = new Date(now.getTime() + shiftMinutes * 60 * 1000);
+        let shiftedNow = shiftDateTime(now);
         let formatter = new Intl.DateTimeFormat("en-US", {
             year: "2-digit", month: "2-digit", day: "2-digit",
             hour: '2-digit', minute: '2-digit', hour12: true,
@@ -82,7 +97,7 @@
     }
 
     calculateCurrentCityTimes();
-    setTimeout(calculateCurrentCityTimes, 10 * 1000);
+    setInterval(calculateCurrentCityTimes, 10 * 1000);
 </script>
 
 <svelte:window on:mousewheel={handleMouseWheel} />

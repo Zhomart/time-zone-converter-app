@@ -1,5 +1,5 @@
 {
-  "name": "tauri-sample-app",
+  "name": "time-zone-converter-app",
   "version": "1.0.0",
   "private": true,
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "tauri-sample-app",
+    "productName": "time-zone-converter-app",
     "version": "0.1.0"
   },
   "build": {
