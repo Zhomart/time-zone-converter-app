@@ -115,6 +115,8 @@
                 <div class="time-shift-disabled">•</div>
             {/if}
             <div class="slider" style="background-position-x: {shiftMinutes * 0.5}px"></div>
+            <div class="slider-gradient left"></div>
+            <div class="slider-gradient right"></div>
         </div>
         {#each currentCities as city }
             <div class="timezone">
@@ -175,6 +177,7 @@
         align-items: center;
         border-bottom: 0.5px solid #888;
         padding: 15px 0 24px 0;
+        position: relative;  /* For .slider-gradient */
     }
 
     .time-shift {
@@ -202,6 +205,21 @@
 
     .time-shift > .reset {
         font-weight: bold;
+    }
+
+    .slider-gradient {
+        width: 50px;
+        height: 49px;
+        position: absolute;
+        bottom: 23px;
+    }
+    .slider-gradient.left {
+        left: 0;
+        background-image: linear-gradient(to right, rgba(62,68,79,1), rgba(62,68,79,0.2));
+    }
+    .slider-gradient.right {
+        right: 0;
+        background-image: linear-gradient(to left, rgba(62,68,79,1), rgba(62,68,79,0.2));
     }
 
     .slider {
