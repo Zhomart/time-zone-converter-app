@@ -195,8 +195,8 @@
     }
 
     .time-shift-disabled {
-        color: #424853;
-        background-color: #AAA;
+        color: #AAA;
+        background-color: #525A68;
         border-radius: 12px;
         padding: 2px 8px;
         font-size: 0.9em;
